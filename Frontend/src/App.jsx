@@ -1,13 +1,13 @@
 import './App.css'
-import Card from './components/Card'
-import Book from './components/Books/Book'
+// import Book from './components/Books/Book'
+import MainPage from './components/MainPage'
 
 
 function App() {
   return (
 
     <div className='App'>
-      <Card />
+      <MainPage />
     </div>
 
 

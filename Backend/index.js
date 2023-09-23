@@ -1,11 +1,13 @@
 require('dotenv').config();
 const express = require('express');
 // const router = Router();
+const cors = require('cors');
 const mongoose = require('mongoose');
-const { bookSchema } = require("./Schema/book");
+const bookSchema = require("./Schema/book");
 const app = express();
+app.use(cors());
 
-mongoose.connect(process.env.MONGO_URI).then(() => {
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true }).then(() => {
     app.listen(process.env.PORT, () => {
         console.log("Listening on port", process.env.PORT);
     })
@@ -14,26 +16,31 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
 })
 
 
+// Get all books
+app.get('/', async (req, res) => {
+    try {
+        const books = await bookSchema.find({});
+        // res.send("Hello World");
+        res.status(200).json(books);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
 // Create a new book
 app.post('/', async (req, res) => {
     try {
         const newBook = new bookSchema(req.body);
         const savedBook = await newBook.save();
+
         res.status(201).json(savedBook);
     } catch (error) {
         res.status(400).json({ error: 'Could not create book' });
     }
 });
 
-// Get all books
-app.get('/', async (req, res) => {
-    try {
-        const books = await find();
-        res.status(200).json(books);
-    } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
-    }
-});
+
 
 // Get a specific book by ID
 app.get('/:id', async (req, res) => {
