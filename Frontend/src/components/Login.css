@@ -43,3 +43,9 @@
 .login-card p {
     margin: 10px 0;
 }
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}

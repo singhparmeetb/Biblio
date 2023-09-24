@@ -9,9 +9,9 @@ const Book = ({ bookData }) => {
             </div>
             <div className="book-info">
                 <h3 className="book-title">{bookData.bookTitle}</h3>
-                <p>{bookData.availableCopies}</p>
                 <p className="book-ISBN">{bookData.ISBN}</p>
                 <p className="book-author">{bookData.bookAuthor}</p>
+                <p className='book-count'>{`Copies Available: ${bookData.availableCopies}`}</p>
                 <p className="book-publish-date">{bookData.yearOfPublication}</p>
             </div>
         </div>

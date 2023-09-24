@@ -19,10 +19,8 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <TopBar />
         <Routes>
           <Route path="/" element={isLoggedIn ? <MainPage /> : <Navigate to="/login" />} />
-          <Route path="/search" element={<Search />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
         </Routes>

@@ -1,13 +1,16 @@
 require('dotenv').config();
 const express = require('express');
 // const router = Router();
+const bodyParser = require('body-parser'); // Import body-parser
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bookSchema = require("./Schema/book");
 const userSchema = require("./Schema/user");
-const bcrypt = require('bcrypt');
 const app = express();
 app.use(cors());
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true }).then(() => {
     app.listen(process.env.PORT, () => {
@@ -86,24 +89,49 @@ app.delete('/:id', async (req, res) => {
 });
 
 app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+
     try {
-        const { email, password } = req.body;
-        const user = await userSchema.findOne({ email });
+        // Query the database for a user with the provided email and password
+        const user = await userSchema.findOne({ email, password });
 
-        if (!user) {
-            return res.status(401).json({ error: 'Invalid credentials' });
+        if (user) {
+            // User found, login successful
+            res.status(200).json({ message: 'Login successful' });
+        } else {
+            // User not found, login failed
+            res.status(401).json({ message: 'Login failed' });
         }
-
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-
-        if (!isPasswordValid) {
-            return res.status(401).json({ error: 'Invalid credentials' });
-        }
-
-        // You can generate a JWT token here for authenticated users
-
-        res.status(200).json({ message: 'Login successful' });
     } catch (error) {
-        res.status(500).json({ error: 'Login failed' });
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+
+app.post('/signup', async (req, res) => {
+    try {
+        // Destructure user data from the request body
+        const { email, password } = req.body;
+
+        // Check if the email is already registered
+        const existingUser = await userSchema.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ error: 'Email is already registered' });
+        }
+
+        // Create a new user
+        const newUser = new userSchema({
+            email,
+            password,
+        });
+
+        // Save the user to the database
+        await newUser.save();
+
+        res.status(201).json({ message: 'User registered successfully' });
+    } catch (error) {
+        console.error('Signup failed:', error);
+        res.status(500).json({ error: 'Signup failed. Please try again later' });
     }
 });

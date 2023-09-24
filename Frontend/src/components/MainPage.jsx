@@ -47,6 +47,7 @@ const MainPage = () => {
     return (
 
         <div className="container">
+            <TopBar />
             <Search
                 searchText={searchText}
                 setSearchText={setSearchText}
