@@ -4,9 +4,11 @@
 }
 
 body {
-  background: linear-gradient(to bottom, rgb(251, 120, 120), rgb(252, 252, 81));
-  height: 100vh;
+  /* background: linear-gradient(to bottom, rgb(251, 120, 120), rgb(252, 252, 81)); */
+  background-color: #ddff55;
+  height: 80vh;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  /* pointer-events: none; */
 }

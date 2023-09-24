@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-import './Search.css';
+import React, { useState } from "react";
+import "./Search.css";
 
-function Search() {
-    const [searchText, setSearchText] = useState('');
-
+function Search({ searchText, setSearchText }) {
     return (
         <div className="search-container">
             <input
@@ -13,6 +11,7 @@ function Search() {
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
             />
+
         </div>
     );
 }

@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import './MainPage.css';
-import SideBar from "./SideBar";
 import Search from "./Search";
 import axios from 'axios';
 import Book from './Books/Book';
+import TopBar from "./TopBar";
 
 const MainPage = () => {
     const containerRef = useRef();
     const [bookData, setBookData] = useState([]);
-    const [loadedBooks, setLoadedBooks] = useState([]);
+    const [searchText, setSearchText] = useState("");
+    const [sortType, setSortType] = useState("");
+
 
     useEffect(() => {
         fetchData();
@@ -16,36 +18,49 @@ const MainPage = () => {
 
     const fetchData = async () => {
         try {
-            const res = await axios.get('http://localhost:8800/'); // Updated endpoint
+            const res = await axios.get('http://localhost:8800/'); //  endpoint
             const data = res.data;
             setBookData(data);
         } catch (error) {
             console.log(error.message);
         }
     }
-    // useEffect(() => {
-    //     if (containerRef.current) {
-    //         const containerHeight = containerRef.current.clientHeight;
-    //         const numBooksToLoad = Math.floor(containerHeight / 10); // Adjust the book card height accordingly
 
-    //         // Load only the number of books that fit within the container
-    //         setLoadedBooks(bookData.slice(0, numBooksToLoad));
-    //     }
-    // }, [bookData]);
+    const filteredBooks = bookData.filter((bookItem) =>
+        bookItem.bookTitle.toLowerCase().includes(searchText.toLowerCase())
+    );
+
+    const sortBooks = (type) => {
+        setSortType(type);
+    };
+
+    const getSortedBooks = () => {
+        let sortedBooks = [...bookData];
+        if (sortType === "year") {
+            sortedBooks.sort((a, b) => a.yearOfPublication - b.yearOfPublication);
+        } else if (sortType === "availability") {
+            sortedBooks.sort((a, b) => a.availableCopies - b.availableCopies);
+        }
+        return sortedBooks;
+    };
 
     return (
+
         <div className="container">
+            <Search
+                searchText={searchText}
+                setSearchText={setSearchText}
+                sortBooks={sortBooks}
+            />
             <div className="grid-container">
-                {bookData.length > 0 ? (
-                    bookData.map((bookItem, index) => (
+                {filteredBooks.length > 0 ? (
+                    filteredBooks.map((bookItem, index) => (
                         <Book key={index} bookData={bookItem} />
                     ))
                 ) : (
-                    <p>No books found</p>
+                    <h3 className="error">No books found</h3>
                 )}
             </div>
-            <SideBar />
-            <Search />
         </div>
     );
 }

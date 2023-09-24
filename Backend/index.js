@@ -4,6 +4,8 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bookSchema = require("./Schema/book");
+const userSchema = require("./Schema/user");
+const bcrypt = require('bcrypt');
 const app = express();
 app.use(cors());
 
@@ -80,5 +82,28 @@ app.delete('/:id', async (req, res) => {
         }
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+app.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const user = await userSchema.findOne({ email });
+
+        if (!user) {
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+
+        if (!isPasswordValid) {
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+
+        // You can generate a JWT token here for authenticated users
+
+        res.status(200).json({ message: 'Login successful' });
+    } catch (error) {
+        res.status(500).json({ error: 'Login failed' });
     }
 });
