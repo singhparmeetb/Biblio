@@ -3,12 +3,35 @@
   font-weight: 400;
 }
 
+/* 
 body {
-  /* background: linear-gradient(to bottom, rgb(120, 251, 144), rgb(252, 252, 81)); */
-  background-color: #ddff55;
+  background-image: url('./assets/Groovy Background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 80vh;
+} */
+
+body::before {
+  content: "";
+  background-image: url('assets/Groovy Background.jpg');
+  opacity: 0.75;
+  /* Adjust the opacity value as needed */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  /* backdrop-filter: blur(3000px); */
+  /* Adjust the blur radius as needed */
+}
+
+body {
+  background-color: rgb(238, 240, 228);
+  /* Set the background color with full opacity */
   height: 80vh;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  /* pointer-events: none; */
 }

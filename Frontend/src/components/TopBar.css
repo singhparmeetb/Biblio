@@ -4,7 +4,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px);
     /* Apply blur effect */
     z-index: 999;
     display: flex;
@@ -16,8 +16,10 @@
 
 
 .navigation {
+    backdrop-filter: blur(5px);
+
     width: 100%;
-    background: rgba(49, 129, 110, 0.9);
+    background: rgba(59, 149, 119, 0.783);
     /* Use rgba for transparency */
     border-radius: 10px;
 }
@@ -35,7 +37,7 @@ img {
     right: -18px;
     bottom: -4px;
     overflow: hidden;
-    letter-spacing: 3px;
+    letter-spacing: 1px;
     opacity: 0;
     transition: opacity .45s;
     -webkit-transition: opacity .35s;
@@ -56,6 +58,7 @@ img {
 }
 
 a:hover {
+
     width: 100px;
 }
 

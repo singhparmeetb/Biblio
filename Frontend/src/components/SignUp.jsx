@@ -12,7 +12,7 @@ const Signup = () => {
 
     const handleSignup = async () => {
         try {
-            const response = await axios.post('http://localhost:8800/signup', {
+            const response = await axios.post('https://library-backend-server.onrender.com/signup', {
                 fullName,
                 email,
                 password,
@@ -56,7 +56,7 @@ const Signup = () => {
                 {isSignupSuccessful && <div className="success-message">Signup successful!</div>}
                 {error && <div className="error-message">{error}</div>}
                 <p>
-                    Already have an account? <a href="/login">Login</a>
+                    Already have an account? <a href="/">Login</a>
                 </p>
             </div>
         </div>

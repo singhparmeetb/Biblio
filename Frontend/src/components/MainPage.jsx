@@ -18,7 +18,7 @@ const MainPage = () => {
 
     const fetchData = async () => {
         try {
-            const res = await axios.get('http://localhost:8800/'); //  endpoint
+            const res = await axios.get('https://library-backend-server.onrender.com/'); //  endpoint
             const data = res.data;
             setBookData(data);
         } catch (error) {

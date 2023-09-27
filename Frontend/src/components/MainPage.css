@@ -5,7 +5,7 @@
     height: calc(100vh - 60px);
     /* padding: 10px; */
     font-size: larger;
-    background-color: #ddff55;
+    /* background-color: #ddff55; */
     border-radius: 1rem;
     display: flex;
     flex-direction: column;

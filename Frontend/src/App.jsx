@@ -8,21 +8,13 @@ import TopBar from './components/TopBar';
 import Login from './components/Login';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-
-  const handleLogin = () => {
-    // Implement your login logic here.
-    // For simplicity, we'll assume successful login for any credentials.
-    setIsLoggedIn(true);
-  };
-
   return (
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" element={isLoggedIn ? <MainPage /> : <Navigate to="/login" />} />
+          <Route path="/home" element={<MainPage />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          <Route path="/" element={<Login />} />
         </Routes>
       </div>
     </Router>

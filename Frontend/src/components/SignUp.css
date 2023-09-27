@@ -7,7 +7,7 @@
 }
 
 .signup-card {
-    background-color: #d7f4fd;
+    background-color: #f5f5f5ef;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
@@ -24,12 +24,21 @@
 }
 
 .signup-card button {
-    background-color: #8813cb;
+    background-color: #4d6fca;
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.signup-card button:hover {
+    background-color: #651437;
+    /* Change to a darker shade on hover */
+    transform: scale(1.05);
+    transition: ease-out;
+    /* Scale up by 5% on hover */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .signup-card p {
